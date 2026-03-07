@@ -1,6 +1,3 @@
-/* ══════════════════════════════
-   CANVAS — falling petals
-══════════════════════════════ */
 const canvas = document.getElementById('canvas');
 const ctx    = canvas.getContext('2d');
 
@@ -57,33 +54,12 @@ function tick() {
   requestAnimationFrame(tick);
 }
 
-/* ══════════════════════════════
-   LOADER → SCENE
-══════════════════════════════ */
 setTimeout(() => {
   document.getElementById('loader').classList.add('hide');
   document.getElementById('scene').classList.add('show');
   tick();
 }, 2700);
 
-/* ══════════════════════════════
-   ENVELOPE
-   Логика z-index при открытии:
-
-   Закрыт:  card(1) < flap-bottom(2) < flap-left/right(3) < flap-top(4)
-            → письмо закрыто всеми 4 треугольниками
-
-   Открыт:
-   1. flap-top начинает rotateX(-180deg)
-   2. ~450ms: flap-top face скрывается (backface-visibility:hidden),
-      письмо видно через открытый проём
-   3. 450ms: письмо начинает двигаться вверх
-      ОДНОВРЕМЕННО flap-top.z-index → 0 (ниже письма z=1)
-      → письмо перекрывает верхний треугольник при выезде ✓
-   4. flap-bottom(2), flap-left/right(3) остаются выше письма(1)
-      → нижняя часть письма, пока оно ещё внутри, скрыта ✓
-      → создаётся эффект выезда «изнутри конверта»
-══════════════════════════════ */
 const envelope = document.getElementById('envelope');
 const flapTop  = document.getElementById('flap-top');
 let openTimer  = null;
@@ -93,14 +69,8 @@ envelope.addEventListener('click', function () {
   this.classList.toggle('open');
 
   if (opening) {
-    // Открытие: в момент старта движения письма (delay 0.45s)
-    // роняем z-index верхнего треугольника ниже письма (z=0 < card z=1)
     openTimer = setTimeout(() => flapTop.classList.add('above-card'), 450);
   } else {
-    // Закрытие: above-card держим пока карточка видна над конвертом,
-    // но снимаем ДО того как она займёт финальную позицию.
-    // К 1200ms флап уже ~82% закрыт и перекроет карточку сверху,
-    // карточка ещё в пути — нет артефакта "карточка поверх флапа".
     clearTimeout(openTimer);
     openTimer = setTimeout(() => flapTop.classList.remove('above-card'), 1200);
   }
