@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>С 8 Марта</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="flower">
+    <div class="petal" style="--deg: 0deg;   animation-delay: 0.10s"></div>
+    <div class="petal" style="--deg: 45deg;  animation-delay: 0.25s"></div>
+    <div class="petal" style="--deg: 90deg;  animation-delay: 0.40s"></div>
+    <div class="petal" style="--deg: 135deg; animation-delay: 0.55s"></div>
+    <div class="petal" style="--deg: 180deg; animation-delay: 0.70s"></div>
+    <div class="petal" style="--deg: 225deg; animation-delay: 0.85s"></div>
+    <div class="petal" style="--deg: 270deg; animation-delay: 1.00s"></div>
+    <div class="petal" style="--deg: 315deg; animation-delay: 1.15s"></div>
+    <div class="flower-center"></div>
+  </div>
+  <div class="loader-label">С 8 марта</div>
+</div>
+
+<!-- CANVAS (falling petals) -->
+<canvas id="canvas"></canvas>
+
+<!-- SCENE -->
+<div id="scene">
+  <div class="title">С 8 Марта</div>
+
+  <div class="envelope" id="envelope">
+
+    <!--
+      Слои (z-index, снизу вверх):
+        0  env-bg      — тёмный фон «внутренности» конверта
+        1  card        — письмо, всегда в DOM, закрыто треугольниками
+        2  flap-bottom — нижний треугольник  (статичный)
+        3  flap-left   — левый треугольник   (статичный)
+        3  flap-right  — правый треугольник  (статичный)
+        4  flap-top    — верхний треугольник, ОТКРЫВАЕТСЯ;
+                         после открытия JS меняет z-index → 0,
+                         и письмо (z=1) перекрывает его при выезде
+        5  env-seal    — печать поверх всех треугольников
+    -->
+
+    <!-- Фон-внутренность -->
+    <div class="env-bg"></div>
+
+    <!-- Письмо -->
+    <div class="card" id="card">
+      <div class="card-title">С 8 Марта ✿</div>
+      <div class="card-body">
+        Знакомы недолго, но уже понятно —<br>
+        ты из тех людей, которым хочется<br>
+        желать только хорошего<br>
+        и больше поводов улыбаться.
+      </div>
+      <div class="card-sign">— просто так &hearts;</div>
+    </div>
+
+    <!-- 4 треугольника — полностью закрывают письмо -->
+    <div class="flap flap-bottom"></div>
+    <div class="flap flap-left"></div>
+    <div class="flap flap-right"></div>
+    <div class="flap flap-top" id="flap-top"></div>
+
+    <!-- Печать в точке схождения треугольников -->
+    <div class="env-seal">&#x1F338;</div>
+
+    <div class="hint">нажми, чтобы открыть</div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
