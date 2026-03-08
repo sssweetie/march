@@ -107,6 +107,10 @@ canvas {
   justify-content: center;
   opacity: 0;
   transition: opacity 1s ease;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
 }
 
 #scene.show { opacity: 1; }
@@ -131,6 +135,11 @@ canvas {
     0 30px 90px rgba(0, 0, 0, 0.65),
     0 0 70px rgba(120, 35, 180, 0.2);
   border-radius: 5px;
+  overflow: hidden;
+}
+
+.envelope.card-flying {
+  overflow: visible;
 }
 
 .env-bg {
@@ -272,4 +281,42 @@ canvas {
   font-style: italic;
   font-size: 13px;
   color: #ae3060;
+}
+
+/* ── Mobile adaptations ───────────────────────────── */
+
+/* Narrow screens: scale down the envelope */
+@media (max-width: 400px) {
+  .envelope {
+    width: 300px;
+    height: 200px;
+  }
+
+  .envelope.open .card {
+    transform: translateY(-170px);
+  }
+
+  .card {
+    padding: 18px 14px 12px;
+  }
+
+  .card-title { font-size: 15px; }
+  .card-body  { font-size: 13px; }
+}
+
+/* Short screens: reduce how far the card flies up */
+@media (max-height: 640px) {
+  .envelope.open .card {
+    transform: translateY(-190px);
+  }
+}
+
+@media (max-height: 520px) {
+  .envelope.open .card {
+    transform: translateY(-150px);
+  }
+
+  .title {
+    margin-bottom: 24px;
+  }
 }

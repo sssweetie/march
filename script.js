@@ -69,9 +69,13 @@ envelope.addEventListener('click', function () {
   this.classList.toggle('open');
 
   if (opening) {
-    openTimer = setTimeout(() => flapTop.classList.add('above-card'), 450);
+    openTimer = setTimeout(() => {
+      flapTop.classList.add('above-card');
+      envelope.classList.add('card-flying');
+    }, 440);
   } else {
     clearTimeout(openTimer);
+    envelope.classList.remove('card-flying');
     openTimer = setTimeout(() => flapTop.classList.remove('above-card'), 1200);
   }
 });
