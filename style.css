@@ -285,8 +285,8 @@ canvas {
 
 /* ── Mobile adaptations ───────────────────────────── */
 
-/* Narrow screens: scale down the envelope */
-@media (max-width: 400px) {
+/* Narrow screens: scale down the envelope (only for very small phones < 370px) */
+@media (max-width: 370px) {
   .envelope {
     width: 300px;
     height: 200px;
