@@ -297,11 +297,14 @@ canvas {
   }
 
   .card {
+    left: 20px;
+    right: 20px;
     padding: 18px 14px 12px;
   }
 
   .card-title { font-size: 15px; }
   .card-body  { font-size: 13px; }
+  .card-sign  { white-space: nowrap; }
 }
 
 /* Short screens: reduce how far the card flies up */
